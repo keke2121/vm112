@@ -1,0 +1,11 @@
+name: test1
+description: A test to connect to the proxmox range
+runtime: 
+  name: python
+  options:
+    toolchain: pip
+    virtualenv: venv 
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: aws-python 
