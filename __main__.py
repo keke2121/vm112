@@ -71,7 +71,7 @@ for node in triangle_nodes:
             # "user_data_file_id": cloud_init_config.id,
         },
         stop_on_destroy=True, 
-        opts=pulumi.RessourceOptions(depends_on=vms[-1:]),
+        opts=pulumi.ResourceOptions(depends_on=vms[-1:]),
     )
     vms.append(vm)
 
