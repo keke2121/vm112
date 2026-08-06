@@ -32,7 +32,7 @@ for node in triangle_nodes:
         description=f"{node['name']} of the triangle created with Pulumi",
         agent={"enabled": False},  # if false rhen less time creating the VM, but no guest agent features available
         clone={
-                   "vm_id":"112",
+                   "vm_id":"111",
                },
        disks=[{"interface": "scsi0", "size": 40,"datastore_id": "dps-a-vol-01"}],        
        cdrom={"file_id": "none", "interface": "ide2"},
