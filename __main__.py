@@ -34,6 +34,7 @@ for node in triangle_nodes:
         clone={
                    "vm_id":"112",
                },
+       disks=[{"interface": "scsi0", "size": 40}],        
        cdrom={"file_id": "none", "interface": "ide2"},
         initialization={
             "type": "nocloud",
