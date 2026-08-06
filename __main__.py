@@ -22,27 +22,7 @@ triangle_nodes = [
 
 vms = []
 
-# vlan = proxmoxve.Vlan("vlanTest",
-#                      node_name="a1-crni",
-#     
-#                 )
 
-# cloud_init_config = proxmoxve.FileLegacy(
-#     "cloud-init-config",
-#     node_name="a1-crni",
-#     datastore_id="dps-a-vol-01",   # or whichever datastore holds snippets on your node
-#     content_type="snippets",
-#     source_raw=proxmoxve.FileLegacySourceRawArgs(
-#         data="""#cloud-config
-# packages:
-#   - qemu-guest-agent
-# runcmd:
-#   - systemctl enable qemu-guest-agent
-#   - systemctl start qemu-guest-agent
-# """,
-#         file_name="triangle-cloud-init.yaml",
-#     ),
-# )
 for node in triangle_nodes:
     vm = proxmoxve.VmLegacy(f"proxmox-vm-{node['name']}",
         node_name="a1-crni",
@@ -54,7 +34,7 @@ for node in triangle_nodes:
         clone={
                    "vm_id":"112",
                },
-       
+       cdrom={"file_id": "none", "interface": "ide2"},
         initialization={
             "type": "nocloud",
             "datastore_id": "dps-a-vol-01",
@@ -68,7 +48,7 @@ for node in triangle_nodes:
                 "username": "root",
                 "password": vm_password, 
             },
-            # "user_data_file_id": cloud_init_config.id,
+           
         },
         stop_on_destroy=True, 
         opts=pulumi.ResourceOptions(depends_on=vms[-1:]),
