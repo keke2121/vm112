@@ -51,31 +51,10 @@ for node in triangle_nodes:
         name=node["name"],
         description=f"{node['name']} of the triangle created with Pulumi",
         agent={"enabled": False},  # if false rhen less time creating the VM, but no guest agent features available
-        bios="seabios",  
-        cpu={
-            "cores": 2,
-            "sockets": 1,
-            # "type": "host", 
-        },
-        memory={
-            "dedicated": 1024,
-        },
-        disks=[{
-            "interface": "scsi0",
-            "datastore_id": "dps-a-vol-01",
-            "size": 20, 
-        }],
-        network_devices=[{
-            "bridge": "si2vn1",
-            "model": "virtio", 
-            "mtu": 1, # 1 inherits the bridge's MTU
-        }],
-        cdrom={
-        "file_id": "dps-a-vol-01:iso/debian-13.2.0-amd64-DVD-1.iso",
-    },
-        operating_system={
-            "type": "l26", 
-        },
+        clone={
+                   "vm_id":"112",
+               },
+       
         initialization={
             "type": "nocloud",
             "datastore_id": "dps-a-vol-01",
