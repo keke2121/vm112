@@ -14,9 +14,9 @@ proxmox = proxmoxve.Provider(
 
 
 triangle_nodes = [
-    {"name": "triangle-1", "vmid": 121, "ip": "10.23.50.59/23", "mac": "BC:24:11:00:CF:96"},
-    {"name": "triangle-2", "vmid": 122, "ip": "10.23.50.60/23", "mac": "BC:24:11:00:CF:97"},
-    {"name": "triangle-3", "vmid": 123, "ip": "10.23.50.61/23", "mac": "BC:24:11:00:CF:98"},
+    {"name": "triangle-1", "vmid": 121, "ip": "10.23.50.59/23"},
+    {"name": "triangle-2", "vmid": 122, "ip": "10.23.50.60/23"},
+    {"name": "triangle-3", "vmid": 123, "ip": "10.23.50.61/23"},
 ]
 
 vms = []
@@ -27,18 +27,41 @@ for node in triangle_nodes:
         pool_id="intern",
         vm_id=node["vmid"],
         name=node["name"],
-        description=f"{node['name']} of the triangle created with Pulumi",
+        description=f"{node['name']} created with Pulumi",
         agent={"enabled": False}, 
         clone={
-            "vm_id": "119", 
+            "vm_id": 119, 
         },
+        
+        # 1. STOP the default physical CD-ROM from triggering Sys.Console
+        cdrom={
+            "file_id": "none"
+            # Do NOT specify "interface". It will default to ide3, keeping out of Cloud-Init's way.
+        },
+        
         network_devices=[{
             "bridge": "vlan407",
-            "mac_address": node["mac"],
             "model": "virtio",
             "mtu": 1
         }],
+        
+        # 2. BRING BACK Cloud-Init now that snippets are enabled!
+        initialization={
+            "type": "nocloud",
+            "datastore_id": "dps-a-vol-01",
+            "ip_configs": [{
+                "ipv4": {
+                    "address": node["ip"],
+                    "gateway": "10.23.50.1",
+                },
+            }],
+            "user_account": {
+                "username": "root",
+                "password": vm_password, 
+            },
+        },
+        
         stop_on_destroy=True, 
-        opts=pulumi.ResourceOptions(depends_on=vms[-1:]),
+        opts=pulumi.ResourceOptions(depends_on=vms[-1:] if vms else None),
     )
     vms.append(vm)
