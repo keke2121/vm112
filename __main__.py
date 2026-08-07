@@ -30,11 +30,11 @@ for node in triangle_nodes:
         description=f"{node['name']} of the triangle created with Pulumi",
         agent={"enabled": False}, 
         clone={
-            "vm_id": "114", 
+            "vm_id": "119", 
         },
         disks=[{
             "interface": "scsi0", 
-            "size": 40,
+            "size": 32,
             "datastore_id": "dps-a-vol-01"
         }],
         network_devices=[{
