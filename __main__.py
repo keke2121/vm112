@@ -46,7 +46,7 @@ for node in triangle_nodes:
         }],
         disks=[{
             "interface": "scsi0", 
-            "size": 32,
+            "size": 40,
             "datastore_id": "dps-a-vol-01"
         }],
         # 2. BRING BACK Cloud-Init now that snippets are enabled!
