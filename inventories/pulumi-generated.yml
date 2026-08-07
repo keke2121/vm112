@@ -1,0 +1,17 @@
+all:
+  vars:
+    ansible_user: root
+    ansible_ssh_pass: "your-secure-password" # The password for the base template
+    ansible_connection: ssh
+    gateway_ip: 10.23.50.1
+
+  hosts:
+    triangle-1:
+      ansible_host: fe80::be24:11ff:fe00:cf96%eth0 
+      new_ipv4: 10.23.50.59/23
+    triangle-2:
+      ansible_host: fe80::be24:11ff:fe00:cf97%eth0
+      new_ipv4: 10.23.50.60/23
+    triangle-3:
+      ansible_host: fe80::be24:11ff:fe00:cf98%eth0
+      new_ipv4: 10.23.50.61/23

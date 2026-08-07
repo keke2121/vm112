@@ -1,0 +1,30 @@
+---
+- name: Configure Static IPv4 Addresses via IPv6
+  hosts: all
+  become: yes
+  tasks:
+    - name: Write standard Debian network interface configuration
+      ansible.builtin.copy:
+        dest: /etc/network/interfaces
+        content: |
+          # This file describes the network interfaces available on your system
+          # and how to activate them. For more information, see interfaces(5).
+          
+          source /etc/network/interfaces.d/*
+          
+          # The loopback network interface
+          auto lo
+          iface lo inet loopback
+          
+          # The primary network interface
+          auto eth0
+          iface eth0 inet static
+              address {{ new_ipv4 }}
+              gateway {{ gateway_ip }}
+      notify: Restart Networking
+
+  handlers:
+    - name: Restart Networking
+      ansible.builtin.systemd:
+        name: networking
+        state: restarted
