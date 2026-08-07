@@ -32,11 +32,6 @@ for node in triangle_nodes:
         clone={
             "vm_id": "119", 
         },
-        disks=[{
-            "interface": "scsi0", 
-            "size": 32,
-            "datastore_id": "dps-a-vol-01"
-        }],
         network_devices=[{
             "bridge": "vlan407",
             "mac_address": node["mac"],
