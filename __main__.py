@@ -33,6 +33,7 @@ for node in triangle_nodes:
         agent={"enabled": False},  # if false rhen less time creating the VM, but no guest agent features available
         clone={
                    "vm_id":"114",
+                   "full": False,
                },
        disks=[{"interface": "scsi0", "size": 40,"datastore_id": "dps-a-vol-01"}],        
         initialization={
