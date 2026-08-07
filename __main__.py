@@ -44,7 +44,11 @@ for node in triangle_nodes:
             "model": "virtio",
             "mtu": 1
         }],
-        
+        disks=[{
+            "interface": "scsi0", 
+            "size": 32,
+            "datastore_id": "dps-a-vol-01"
+        }],
         # 2. BRING BACK Cloud-Init now that snippets are enabled!
         initialization={
             "type": "nocloud",
