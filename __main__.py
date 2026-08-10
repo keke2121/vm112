@@ -30,7 +30,7 @@ for node in triangle_nodes:
         description=f"{node['name']} created with Pulumi",
         agent={"enabled": False},  #pulumi never stops if activated 
         clone={
-            "vm_id": 107, 
+            "vm_id": 119, 
         },
         
         # 1. STOP the default physical CD-ROM from triggering Sys.Console
