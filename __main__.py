@@ -28,7 +28,7 @@ for node in triangle_nodes:
         vm_id=node["vmid"],
         name=node["name"],
         description=f"{node['name']} created with Pulumi",
-        agent={"enabled": False}, 
+        agent={"enabled": True}, 
         clone={
             "vm_id": 114, 
         },
@@ -60,7 +60,7 @@ for node in triangle_nodes:
                 },
             }],
             "user_account": {
-                "username": "root",
+                "username": "test",
                 "password": vm_password, 
             },
         },
