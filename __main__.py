@@ -15,8 +15,8 @@ proxmox = proxmoxve.Provider(
 
 triangle_nodes = [
     {"name": "triangle-1", "vmid": 121, "ip": "10.23.50.59/23"},
-    {"name": "triangle-2", "vmid": 122, "ip": "10.23.50.60/23"},
-    {"name": "triangle-3", "vmid": 123, "ip": "10.23.50.61/23"},
+    # {"name": "triangle-2", "vmid": 122, "ip": "10.23.50.60/23"},
+    # {"name": "triangle-3", "vmid": 123, "ip": "10.23.50.61/23"},
 ]
 
 vms = []
