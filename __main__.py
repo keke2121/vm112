@@ -1,5 +1,7 @@
 import pulumi 
 import pulumi_proxmoxve as proxmoxve
+import pulumi_tls as tls
+import pulumi_std as std
 
 config = pulumi.Config("proxmoxve")
 endpoint = config.require("endpoint")
@@ -18,6 +20,10 @@ triangle_nodes = [
     {"name": "triangle-2", "vmid": 122, "ip": "10.23.50.60/23"},
     {"name": "triangle-3", "vmid": 123, "ip": "10.23.50.61/23"},
 ]
+
+vm_key = tls.PrivateKey("vm_key",
+    algorithm="RSA",
+    rsa_bits=2048)
 
 vms = []
 
@@ -60,6 +66,7 @@ for node in triangle_nodes:
                 },
             }],
             "user_account": {
+                "keys": [std.trimspace_output(input=vm_key.public_key_openssh).apply(lambda invoke: invoke.result)],
                 "username": "test",
                 "password": vm_password, 
             },
@@ -69,3 +76,6 @@ for node in triangle_nodes:
         opts=pulumi.ResourceOptions(depends_on=vms[-1:] if vms else None),
     )
     vms.append(vm)
+
+pulumi.export("VmPrivateKey", vm_key.private_key_pem)
+pulumi.export("VmPublicKey", vm_key.public_key_openssh)
