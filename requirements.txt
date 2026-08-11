@@ -1,2 +1,4 @@
 pulumi
 pulumi-proxmoxve
+pulumi_tls
+pulumi_std
